@@ -1,3 +1,6 @@
+//Imoet Library
+//Copyright © 2019 Yusuf Sulaeman
+#if IMOET_INCLUDE_UTILITY
 using System.Text;
 namespace Imoet.Utility
 {
@@ -27,3 +30,4 @@ namespace Imoet.Utility
         }
     }
 }
+#endif

@@ -3,6 +3,8 @@
 namespace Imoet
 {
     using System;
+    using System.Runtime.InteropServices;
+
     [Serializable, StructLayout(LayoutKind.Sequential)]
     public struct Offset {
         public int left,right, top, bottom;
