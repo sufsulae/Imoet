@@ -14,7 +14,7 @@ namespace Imoet.Networking
         static MimeTypeMap() {
             m_map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {
 
-#region Big freaking list of mime types
+            #region Big freaking list of mime types
             
             // maps both ways,
             // extension -> mime type

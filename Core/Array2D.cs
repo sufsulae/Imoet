@@ -10,7 +10,7 @@ namespace Imoet
         public Array2D(int rowCount, int coloumCount) {
             Resize(rowCount, coloumCount);
         }
-        //Property
+
         public int rowCount { get; private set; }
 
         public int coloumCount { get; private set; }

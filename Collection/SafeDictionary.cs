@@ -1,5 +1,5 @@
 ﻿//Imoet Library
-//Copyright © 2019 Yusuf Sulaeman
+//Copyright © 2020 Yusuf Sulaeman
 namespace Imoet.Collections {
 
     using System.Collections;
@@ -23,12 +23,12 @@ namespace Imoet.Collections {
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return (IEnumerator)GetEnumerator();
+            return GetEnumerator();
         }
 
-        public SafeDictionaryEnum<TKey,TValue> GetEnumerator()
+        public SafeDictionaryEnum<TKey, TValue> GetEnumerator()
         {
-            return new SafeDictionaryEnum<TKey,TValue>(m_key,m_value);
+            return new SafeDictionaryEnum<TKey, TValue>(m_key, m_value);
         }
 
         public TValue this[TKey key]
@@ -79,6 +79,11 @@ namespace Imoet.Collections {
             return this[key];
         }
 
+        public TKey Find(TValue value)
+        {
+            return m_key[m_value.IndexOf(value)];
+        }
+
         public bool ContainKey(TKey key)
         {
             return m_key.Contains(key);
@@ -88,28 +93,50 @@ namespace Imoet.Collections {
         {
             return m_value.Contains(value);
         }
+
+        public TValue Index(int idx)
+        {
+            return m_value[idx];
+        }
+
+        public Dictionary<TKey, TValue> ToDictionary()
+        {
+            var newDict = new Dictionary<TKey, TValue>();
+            for (int i = 0; i < Count; i++)
+                newDict.Add(m_key[i], m_value[i]);
+            return newDict;
+        }
     }
 
-    public class SafeDictionaryEnum<TKey,TValue> : IEnumerator {
+    public class SafeDictionaryEnum<TKey, TValue> : IEnumerator
+    {
         private int m_pos = -1;
         private List<TKey> m_keys;
         private List<TValue> m_values;
-        public SafeDictionaryEnum(List<TKey> keys, List<TValue> values) {
+
+        public SafeDictionaryEnum(List<TKey> keys, List<TValue> values)
+        {
             m_keys = keys;
             m_values = values;
         }
-        object IEnumerator.Current {
+
+        object IEnumerator.Current
+        {
             get { return Current; }
         }
-        public bool MoveNext(){
+
+        public bool MoveNext()
+        {
             m_pos++;
             return (m_pos < m_keys.Count);
         }
 
-        public void Reset() {
+        public void Reset()
+        {
             m_pos = -1;
         }
-        public KeyValuePair<TKey, TValue> Current {
+        public KeyValuePair<TKey, TValue> Current
+        {
             get { return new KeyValuePair<TKey, TValue>(m_keys[m_pos], m_values[m_pos]); }
         }
     }

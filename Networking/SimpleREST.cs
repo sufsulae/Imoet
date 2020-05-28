@@ -38,6 +38,7 @@ namespace Imoet.Networking
         public SimpleREST(string url)
         {
             m_url = url;
+            var w = new WebClient();
         }
         public void Request(OnRESTResponse onRequest) {
             Request(HttpRequestMethod.GET, null, onRequest);
@@ -157,12 +158,13 @@ namespace Imoet.Networking
 
         public void RequestAsync(HttpRequestMethod method,byte[] data, OnRESTResponse onRequest, params string[] headers)
         {
-            ImoetDelegateReturn<bool> onWork = delegate ()
+            Worker.WorkerDelegate onWork = delegate (out object result)
             {
                 Request(method, data, null, headers);
+                result = null;
                 return true;
             };
-            ImoetAction<Exception> onFinish = delegate (Exception e)
+            Worker.WorkerFinishedDelegate onFinish = delegate (Exception e, object result)
             {
                 //if (e != null)
                 //    throw e;
@@ -174,12 +176,13 @@ namespace Imoet.Networking
 
         public void RequestAsync(SimpleRESTForm form, OnRESTResponse onRequest)
         {
-            ImoetDelegateReturn<bool> onWork = delegate ()
+            Worker.WorkerDelegate onWork = delegate (out object result)
             {
                 Request(form, onRequest);
+                result = null;
                 return true;
             };
-            ImoetAction<Exception> onFinish = delegate (Exception e)
+            Worker.WorkerFinishedDelegate onFinish = delegate (Exception e, object result)
             {
                 //if (e != null)
                 //    throw e;

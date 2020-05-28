@@ -12,14 +12,13 @@ namespace Imoet
         private static float* sValPtr, sResPtr;
 #endif
         public const float Epsilon = 1E-05f;
-        public const float maxAngle = 360.0f;
-        public const float halfAngle = 180.0f;
-        public const float halfPI = 1.57079637f;
-        public const float doublePI = 6.28318548f;
+        public const float MaxAngle = 360.0f;
+        public const float HalfAngle = 180.0f;
+        public const float HalfPI = 1.57079637f;
+        public const float DoublePI = 6.28318548f;
         public const float PI = 3.14159274f;
         static UMath()
         {
-            random = new Random();
             singleResult = new float[1];
             singleValue = new float[1];
         }
@@ -393,6 +392,7 @@ namespace Imoet
         }
         public static float RandomRange(float min, float max)
         {
+			random = new Random();
             float amount = (float)random.NextDouble();
             return Lerp(min, max, amount);
         }
